@@ -1,0 +1,5 @@
+library(ggplot2)
+qplot(sales$sqft_living,sales$price,colour=sales$price,
+      xlab ="Squre feet", ylab="price($)")
+      
+      
