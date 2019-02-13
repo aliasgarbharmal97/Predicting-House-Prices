@@ -1,0 +1,37 @@
+set.seed(0)
+prob <- c(0.8,0.2)
+tags <- c("train", "test")
+sample_tag <-  sample(tags,size=length(sales$id),replace=TRUE,prob=prob)
+sales_tag <- cbind(sales,sample_tag)
+train_data <- subset(sales_tag,sample_tag == 'train',select=-sample_tag)
+test_data <- subset(sales_tag,sample_tag == 'test',select=-sample_tag)
+length(train_data[,1])
+
+#create simple regression model
+sqft_model <- lm(formula=price~sqft_living,data=train_data)
+
+#Evaluate simple linear regression model
+print(mean(train_data$price))
+range(fitted(sqft_model))
+range(residuals(sqft_model))
+dist <- fitted(sqft_model) + residuals(sqft_model)
+range(dist)
+deviance(sqft_model) #SSE
+sqrt(sum(residuals(sqft_model)^2) / length(train_data$id)) #RMSE
+
+
+real_test <- test_data$price
+predict_test <- predict(sqft_model,test_data)
+sqrt(sum((predict_test-real_test)^2) / length(test_data$id)) #RMSE
+
+#Plotting the data
+
+ggplot(train_data, aes(x=sqft_living, y=price)) +
+    geom_point(alpha=1, colour='blue') +
+    geom_abline(intercept=sqft_model$coefficient[1], slope=sqft_model$coefficients[2],colour="red")
+    
+ggplot(test_data, aes(x=sqft_living, y=price)) +
+    geom_point(alpha=1, colour='blue') +
+    geom_abline(intercept=sqft_model$coefficient[1], slope=sqft_model$coefficients[2],colour="red")
+    
+    summary(sqft_model)
