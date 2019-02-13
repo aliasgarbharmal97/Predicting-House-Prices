@@ -1,0 +1,6 @@
+library(RCurl)
+csv <- getURL("https://s3-ap-northeast-1.amazonaws.com/ldktorage/coursera_dato/home_data.csv")
+sales <- read.csv(text = csv)
+colnames(sales)
+head(sales)
+str(sales)
