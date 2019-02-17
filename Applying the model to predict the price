@@ -1,0 +1,14 @@
+house1 = sales[which(sales$id=='5309101200'),]
+house1
+
+house1$price
+
+predict(sqft_model,house1)
+
+predict(my_features_model,house1)
+
+house2$price
+
+predict(sqft_model,house2)
+
+predict(my_features_model,house2)
