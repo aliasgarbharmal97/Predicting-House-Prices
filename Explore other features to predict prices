@@ -1,0 +1,36 @@
+my_features <- c('bedrooms','bathrooms','sqft_living','sqft_lot','floors','zipcode')
+summary(sales[,my_features])
+
+ggplot(sales, aes(x=as.factor(zipcode), y=price)) +
+  geom_boxplot(fill="yellow", color="blue")
+  
+sort(table(sales$sqft_living),decreasing=TRUE)[1]
+
+sales_sqr_ft_1300 <- subset(sales,sqft_living==1300)
+range(sales_sqr_ft_1300$sqft_living)
+
+ggplot(sales_sqr_ft_1300, aes(as.factor(zipcode),price)) +
+  geom_boxplot(fill="yellow", color="blue")
+  
+sort(table(sales$zipcode),decreasing=TRUE)[1]
+
+sales_zipcode_98103 <- subset(sales,zipcode==98103)
+ggplot(sales_zipcode_98103, aes(as.factor(bedrooms),price)) +
+  geom_boxplot(color="blue", fill="green") +
+  ggtitle("Box Plot for Bedrooms in Seattle") +
+  xlab("Bedrooms") + ylab("Price")
+  
+ggplot(sales_zipcode_98103, aes(as.factor(bathrooms),price)) +
+  geom_boxplot(color="blue", fill="green") +
+  ggtitle("Box Plot for Bathrooms in Seattle") +
+  xlab("Bathrooms") + ylab("Price")
+  
+ggplot(sales_zipcode_98103, aes(as.factor(sqft_lot),price)) +
+  geom_boxplot(color="blue", fill="green") +
+  ggtitle("Box Plot for Sqft lot in Seattle") +
+  xlab("Sqft lot") + ylab("Price")
+  
+ggplot(sales_zipcode_98103, aes(as.factor(floors),price),price) +
+  geom_boxplot(color="blue", fill="green") +
+  ggtitle("Box Plot for Floors in Seattle") +
+  xlab("Floors") + ylab("Price")
