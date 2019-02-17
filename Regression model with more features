@@ -1,0 +1,8 @@
+my_features_model <- lm(formula=price ~ bedrooms + bathrooms + sqft_living + sqft_lot + floors + zipcode, data=train_data)
+summary(my_features_model)
+
+sqrt(sum(residuals(my_features_model)^2) / length(train_data$id)) #RMSE
+
+real_test <- test_data$price
+predict_test <- predict(my_features_model,test_data)
+sqrt(sum((predict_test-real_test)^2) / length(test_data$id)) #RMSE
